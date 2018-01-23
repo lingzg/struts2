@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<package name="day01" namespace="/demo" extends="struts-default">
+		<action name="hello" class="action.HelloAction" method="sayHello">
+			<result name="success">
+				/hello.jsp
+			</result>
+		</action>
+		<action name="ognl" class="action.OGNLAction" method="showOGNL">
+			<result name="success">
+				/ognl.jsp
+			</result>
+		</action>
+	</package>
+	
+	<package name="customer" namespace="/customer" extends="struts-default">
+		<interceptors>
+			<interceptor name="first" class="interceptor.FirstInterceptor"/>
+			<interceptor name="second" class="interceptor.SecondInterceptor"/>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="first"/>
+				<interceptor-ref name="second"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"/>
+		<action name="update" class="action.ToUpdateCustomerAction" method="execute">
+			<!-- <interceptor-ref name="first"/> -->
+			<result name="success">
+				/customer.jsp
+			</result>
+		</action>
+	</package>
+</struts>
